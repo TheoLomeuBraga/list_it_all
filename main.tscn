@@ -1,0 +1,125 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4abt3l70yows"]
+
+[sub_resource type="Theme" id="Theme_7dm0k"]
+Button/font_sizes/font_size = 24
+LineEdit/font_sizes/font_size = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7dm0k"]
+bg_color = Color(0.2394, 0.38817, 0.57, 1)
+
+[node name="Main" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_7dm0k")
+metadata/_edit_use_anchors_ = true
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7dm0k")
+metadata/_edit_use_anchors_ = true
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="PanelContainer"]
+layout_mode = 2
+ratio = 1.5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/AspectRatioContainer"]
+layout_mode = 2
+
+[node name="list_manager" type="HBoxContainer" parent="PanelContainer/AspectRatioContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="OptionButton" type="OptionButton" parent="PanelContainer/AspectRatioContainer/VBoxContainer/list_manager"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="PanelContainer/AspectRatioContainer/VBoxContainer/list_manager"]
+layout_mode = 2
+text = " rename "
+
+[node name="add" type="Button" parent="PanelContainer/AspectRatioContainer/VBoxContainer/list_manager"]
+layout_mode = 2
+text = " + "
+
+[node name="remove" type="Button" parent="PanelContainer/AspectRatioContainer/VBoxContainer/list_manager"]
+layout_mode = 2
+text = " - "
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/AspectRatioContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="PanelContainer/AspectRatioContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel"]
+layout_mode = 2
+offset_top = 4.0
+offset_right = 972.0
+offset_bottom = 605.0
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="list_item" type="HBoxContainer" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="id" type="LineEdit" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer/VBoxContainer/list_item"]
+layout_mode = 2
+alignment = 1
+max_length = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer/VBoxContainer/list_item"]
+layout_mode = 2
+
+[node name="up" type="Button" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer/VBoxContainer/list_item/VBoxContainer"]
+layout_mode = 2
+text = "^"
+
+[node name="down" type="Button" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer/VBoxContainer/list_item/VBoxContainer"]
+layout_mode = 2
+text = "v
+"
+
+[node name="key" type="LineEdit" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer/VBoxContainer/list_item"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="value" type="LineEdit" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer/VBoxContainer/list_item"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/AspectRatioContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="save" type="Button" parent="PanelContainer/AspectRatioContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "save
+"
+
+[node name="reset" type="Button" parent="PanelContainer/AspectRatioContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "reset
+"
