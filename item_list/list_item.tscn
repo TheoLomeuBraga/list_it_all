@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://dgkkw38m7lasw"]
+
+[ext_resource type="Script" uid="uid://bvh3relsb5c2q" path="res://item_list/list_item.gd" id="1_nart2"]
+[ext_resource type="Texture2D" uid="uid://dhrubgn2cdwcw" path="res://icons/ArrowUp.svg" id="2_at0n8"]
+[ext_resource type="Texture2D" uid="uid://5binq6hoehgf" path="res://icons/Remove.svg" id="2_r6au1"]
+[ext_resource type="Texture2D" uid="uid://xmbhj3s63pqu" path="res://icons/ArrowDown.svg" id="3_bugv6"]
+
+[node name="list_item" type="HBoxContainer"]
+alignment = 1
+script = ExtResource("1_nart2")
+
+[node name="id" type="LineEdit" parent="."]
+layout_mode = 2
+alignment = 1
+max_length = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="up" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+icon = ExtResource("2_at0n8")
+
+[node name="down" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+icon = ExtResource("3_bugv6")
+
+[node name="key" type="LineEdit" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="value" type="LineEdit" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="remove" type="Button" parent="."]
+layout_mode = 2
+icon = ExtResource("2_r6au1")
+icon_alignment = 1

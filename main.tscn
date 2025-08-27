@@ -1,4 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://c4abt3l70yows"]
+[gd_scene load_steps=11 format=3 uid="uid://c4abt3l70yows"]
+
+[ext_resource type="Texture2D" uid="uid://cumftfxkll0kp" path="res://icons/Add.svg" id="1_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://pc2jovg64cv5" path="res://icons/Edit.svg" id="1_7mycd"]
+[ext_resource type="PackedScene" uid="uid://dgkkw38m7lasw" path="res://item_list/list_item.tscn" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://5binq6hoehgf" path="res://icons/Remove.svg" id="2_lquwl"]
+[ext_resource type="Texture2D" uid="uid://dag1rjjqtci4d" path="res://icons/Save.svg" id="4_7mycd"]
+[ext_resource type="Texture2D" uid="uid://cixsgxc3xpicr" path="res://icons/Reload.svg" id="5_lquwl"]
 
 [sub_resource type="Theme" id="Theme_7dm0k"]
 Button/font_sizes/font_size = 24
@@ -6,6 +13,12 @@ LineEdit/font_sizes/font_size = 24
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7dm0k"]
 bg_color = Color(0.2394, 0.38817, 0.57, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lquwl"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mycd"]
+bg_color = Color(0.239216, 0.0823529, 0.309804, 1)
 
 [node name="Main" type="Control"]
 texture_filter = 1
@@ -35,6 +48,10 @@ ratio = 1.5
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/AspectRatioContainer"]
 layout_mode = 2
 
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/AspectRatioContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxFlat_lquwl")
+
 [node name="list_manager" type="HBoxContainer" parent="PanelContainer/AspectRatioContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -45,17 +62,43 @@ size_flags_horizontal = 3
 [node name="Button" type="Button" parent="PanelContainer/AspectRatioContainer/VBoxContainer/list_manager"]
 layout_mode = 2
 text = " rename "
+icon = ExtResource("1_7mycd")
+icon_alignment = 2
 
 [node name="add" type="Button" parent="PanelContainer/AspectRatioContainer/VBoxContainer/list_manager"]
 layout_mode = 2
-text = " + "
+icon = ExtResource("1_1bvp3")
+icon_alignment = 1
 
 [node name="remove" type="Button" parent="PanelContainer/AspectRatioContainer/VBoxContainer/list_manager"]
 layout_mode = 2
-text = " - "
+theme_override_colors/icon_disabled_color = Color(1, 0, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(1, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(1, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(1, 0, 0, 1)
+icon = ExtResource("2_lquwl")
+icon_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="PanelContainer/AspectRatioContainer/VBoxContainer"]
+[node name="column_info" type="HBoxContainer" parent="PanelContainer/AspectRatioContainer/VBoxContainer"]
 layout_mode = 2
+
+[node name="key" type="LineEdit" parent="PanelContainer/AspectRatioContainer/VBoxContainer/column_info"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "key"
+placeholder_text = "key"
+alignment = 1
+right_icon = ExtResource("1_7mycd")
+
+[node name="value" type="LineEdit" parent="PanelContainer/AspectRatioContainer/VBoxContainer/column_info"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "value"
+placeholder_text = "value"
+alignment = 1
+right_icon = ExtResource("1_7mycd")
 
 [node name="Panel" type="Panel" parent="PanelContainer/AspectRatioContainer/VBoxContainer"]
 layout_mode = 2
@@ -78,36 +121,43 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="list_item" type="HBoxContainer" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="id" type="LineEdit" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer/VBoxContainer/list_item"]
-layout_mode = 2
-alignment = 1
-max_length = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer/VBoxContainer/list_item"]
+[node name="list_item" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer/VBoxContainer" instance=ExtResource("1_ig7tw")]
 layout_mode = 2
 
-[node name="up" type="Button" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer/VBoxContainer/list_item/VBoxContainer"]
+[node name="list_item2" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer/VBoxContainer" instance=ExtResource("1_ig7tw")]
 layout_mode = 2
-text = "^"
 
-[node name="down" type="Button" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer/VBoxContainer/list_item/VBoxContainer"]
+[node name="list_item3" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer/VBoxContainer" instance=ExtResource("1_ig7tw")]
 layout_mode = 2
-text = "v
-"
 
-[node name="key" type="LineEdit" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer/VBoxContainer/list_item"]
+[node name="list_item4" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer/VBoxContainer" instance=ExtResource("1_ig7tw")]
+layout_mode = 2
+
+[node name="list_item5" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer/VBoxContainer" instance=ExtResource("1_ig7tw")]
+layout_mode = 2
+
+[node name="add_column" type="HBoxContainer" parent="PanelContainer/AspectRatioContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="key" type="LineEdit" parent="PanelContainer/AspectRatioContainer/VBoxContainer/add_column"]
 layout_mode = 2
 size_flags_horizontal = 3
+text = "key"
+placeholder_text = "key"
 alignment = 1
+right_icon = ExtResource("1_7mycd")
 
-[node name="value" type="LineEdit" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer/VBoxContainer/list_item"]
+[node name="value" type="LineEdit" parent="PanelContainer/AspectRatioContainer/VBoxContainer/add_column"]
 layout_mode = 2
 size_flags_horizontal = 3
+text = "value"
+placeholder_text = "value"
 alignment = 1
+right_icon = ExtResource("1_7mycd")
+
+[node name="Button" type="Button" parent="PanelContainer/AspectRatioContainer/VBoxContainer/add_column"]
+layout_mode = 2
+icon = ExtResource("1_1bvp3")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/AspectRatioContainer/VBoxContainer"]
 layout_mode = 2
@@ -117,9 +167,145 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "save
 "
+icon = ExtResource("4_7mycd")
+icon_alignment = 2
+expand_icon = true
 
 [node name="reset" type="Button" parent="PanelContainer/AspectRatioContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "reset
+text = "reload
 "
+icon = ExtResource("5_lquwl")
+icon_alignment = 2
+expand_icon = true
+
+[node name="HSeparator2" type="HSeparator" parent="PanelContainer/AspectRatioContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxFlat_lquwl")
+
+[node name="new_list" type="Window" parent="."]
+canvas_item_default_texture_filter = 0
+title = "new list"
+initial_position = 2
+size = Vector2i(620, 435)
+visible = false
+unresizable = true
+always_on_top = true
+sharp_corners = true
+
+[node name="PanelContainer" type="PanelContainer" parent="new_list"]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_7mycd")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="new_list/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="new_list/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "new list"
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="new_list/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Column1" type="LineEdit" parent="new_list/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "column 1"
+alignment = 1
+right_icon = ExtResource("1_7mycd")
+
+[node name="Column2" type="LineEdit" parent="new_list/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "column 2"
+alignment = 1
+right_icon = ExtResource("1_7mycd")
+
+[node name="create" type="Button" parent="new_list/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "create new list"
+
+[node name="delete_list" type="Window" parent="."]
+auto_translate_mode = 1
+canvas_item_default_texture_filter = 0
+title = "delete list ?"
+initial_position = 2
+size = Vector2i(620, 435)
+visible = false
+unresizable = true
+always_on_top = true
+sharp_corners = true
+
+[node name="PanelContainer" type="PanelContainer" parent="delete_list"]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_7mycd")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="delete_list/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="Label" type="Label" parent="delete_list/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "delete list ?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="delete_list/PanelContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="yes" type="Button" parent="delete_list/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_disabled_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+theme_override_colors/icon_disabled_color = Color(1, 0, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(1, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(1, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(1, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
+text = "YES"
+
+[node name="no" type="Button" parent="delete_list/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_disabled_color = Color(0, 1, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 1, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 0, 1)
+theme_override_colors/icon_disabled_color = Color(0, 1, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0, 1, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 1, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 1, 0, 1)
+theme_override_colors/icon_focus_color = Color(0, 1, 0, 1)
+theme_override_colors/icon_normal_color = Color(0, 1, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 1, 0, 1)
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 1, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 1, 0, 1)
+text = "NO"
