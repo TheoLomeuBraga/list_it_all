@@ -5,6 +5,11 @@ func get_id() -> int:
 	return get_index()
 	
 func set_id(id : int) -> void:
+	
+	if id < 0:
+		$id.text = str(0)
+		get_parent().move_child(self,0)
+	
 	if id >= 0:
 		$id.text = str(id)
 		get_parent().move_child(self,id)
