@@ -1,11 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://c4abt3l70yows"]
+[gd_scene load_steps=12 format=3 uid="uid://c4abt3l70yows"]
 
 [ext_resource type="Texture2D" uid="uid://cumftfxkll0kp" path="res://icons/Add.svg" id="1_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://pc2jovg64cv5" path="res://icons/Edit.svg" id="1_7mycd"]
-[ext_resource type="PackedScene" uid="uid://dgkkw38m7lasw" path="res://item_list/list_item.tscn" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://dnsakfmtritgp" path="res://main.gd" id="1_272bh"]
 [ext_resource type="Texture2D" uid="uid://5binq6hoehgf" path="res://icons/Remove.svg" id="2_lquwl"]
 [ext_resource type="Texture2D" uid="uid://dag1rjjqtci4d" path="res://icons/Save.svg" id="4_7mycd"]
 [ext_resource type="Texture2D" uid="uid://cixsgxc3xpicr" path="res://icons/Reload.svg" id="5_lquwl"]
+[ext_resource type="Texture2D" uid="uid://6sum7ov7lnw7" path="res://icons/PageNext.svg" id="8_5vw27"]
 
 [sub_resource type="Theme" id="Theme_7dm0k"]
 Button/font_sizes/font_size = 24
@@ -29,6 +30,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_7dm0k")
+script = ExtResource("1_272bh")
 metadata/_edit_use_anchors_ = true
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -105,36 +107,25 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel"]
-layout_mode = 2
-offset_top = 4.0
-offset_right = 972.0
-offset_bottom = 605.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_vertical = 3
+follow_focus = true
+metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer"]
+[node name="list_items" type="VBoxContainer" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="list_item" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer/VBoxContainer" instance=ExtResource("1_ig7tw")]
-layout_mode = 2
-
-[node name="list_item2" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer/VBoxContainer" instance=ExtResource("1_ig7tw")]
-layout_mode = 2
-
-[node name="list_item3" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer/VBoxContainer" instance=ExtResource("1_ig7tw")]
-layout_mode = 2
-
-[node name="list_item4" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer/VBoxContainer" instance=ExtResource("1_ig7tw")]
-layout_mode = 2
-
-[node name="list_item5" parent="PanelContainer/AspectRatioContainer/VBoxContainer/Panel/ScrollContainer/HBoxContainer/VBoxContainer" instance=ExtResource("1_ig7tw")]
-layout_mode = 2
 
 [node name="add_column" type="HBoxContainer" parent="PanelContainer/AspectRatioContainer/VBoxContainer"]
 layout_mode = 2
@@ -155,7 +146,7 @@ placeholder_text = "value"
 alignment = 1
 right_icon = ExtResource("1_7mycd")
 
-[node name="Button" type="Button" parent="PanelContainer/AspectRatioContainer/VBoxContainer/add_column"]
+[node name="add" type="Button" parent="PanelContainer/AspectRatioContainer/VBoxContainer/add_column"]
 layout_mode = 2
 icon = ExtResource("1_1bvp3")
 
@@ -179,6 +170,13 @@ text = "reload
 icon = ExtResource("5_lquwl")
 icon_alignment = 2
 expand_icon = true
+
+[node name="export" type="Button" parent="PanelContainer/AspectRatioContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "export"
+icon = ExtResource("8_5vw27")
+icon_alignment = 2
 
 [node name="HSeparator2" type="HSeparator" parent="PanelContainer/AspectRatioContainer/VBoxContainer"]
 layout_mode = 2
@@ -309,3 +307,46 @@ theme_override_colors/font_color = Color(0, 1, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 1, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 1, 0, 1)
 text = "NO"
+
+[node name="rename_list_to" type="Window" parent="."]
+auto_translate_mode = 1
+canvas_item_default_texture_filter = 0
+title = "delete list ?"
+initial_position = 2
+size = Vector2i(620, 435)
+visible = false
+unresizable = true
+always_on_top = true
+sharp_corners = true
+
+[node name="PanelContainer" type="PanelContainer" parent="rename_list_to"]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_7mycd")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="rename_list_to/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="rename_list" type="Label" parent="rename_list_to/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "rename list to:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="rename_list_to/PanelContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "new name"
+alignment = 1
+
+[node name="Button" type="Button" parent="rename_list_to/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "ok"
