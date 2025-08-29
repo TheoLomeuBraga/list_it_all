@@ -14,12 +14,26 @@ func save_list(name:String,data:Array) -> void:
 
 func load_list(name:String) -> Array:
 	
+	
+	if name == "":
+		return []
+	
 	var file_text : String = FileAccess.get_file_as_string(software_dir + "/" + name + ".json")
+	var file_data = JSON.parse_string(file_text)
+	
+	if file_data == null:
+		return []
+	
 	var data : Array = JSON.parse_string(file_text)
 	if data != null:
 		return data
 	
 	return []
+
+func delete_list(name:String) -> void:
+	DirAccess.remove_absolute(software_dir + "/" + name + ".json")
+	
+
 
 @export var list_item_scene : PackedScene = preload("res://item_list/list_item.tscn")
 
@@ -40,14 +54,16 @@ func on_create_new_list_button() -> void:
 			[$new_list/PanelContainer/VBoxContainer/HBoxContainer/Column1.text,$new_list/PanelContainer/VBoxContainer/HBoxContainer/Column2.text]
 		])
 		
-		$new_list/PanelContainer/VBoxContainer/LineEdit.text = current_list_name
+		#$new_list/PanelContainer/VBoxContainer/LineEdit.text = current_list_name
 		$PanelContainer/AspectRatioContainer/VBoxContainer/column_info/key.text = $new_list/PanelContainer/VBoxContainer/HBoxContainer/Column1.text
 		$PanelContainer/AspectRatioContainer/VBoxContainer/column_info/value.text = $new_list/PanelContainer/VBoxContainer/HBoxContainer/Column2.text
 		
 		$new_list.visible = false
 		
-		$PanelContainer/AspectRatioContainer/VBoxContainer/list_manager/OptionButton.add_item($new_list/PanelContainer/VBoxContainer/LineEdit.text)
-		$PanelContainer/AspectRatioContainer/VBoxContainer/list_manager/OptionButton.select($PanelContainer/AspectRatioContainer/VBoxContainer/list_manager/OptionButton.item_count()-1)
+		var ob : OptionButton = $PanelContainer/AspectRatioContainer/VBoxContainer/list_manager/OptionButton
+		print($new_list/PanelContainer/VBoxContainer/LineEdit.text)
+		ob.add_item($new_list/PanelContainer/VBoxContainer/LineEdit.text)
+		ob.select(ob.item_count-1)
 
 
 
@@ -68,6 +84,9 @@ func save_list_data() -> void:
 
 func load_list_data(name : String) -> void:
 	var data : Array = load_list(name)
+	
+	if data.size() == 0:
+		return
 	
 	$PanelContainer/AspectRatioContainer/VBoxContainer/column_info/key.text = data[0][0]
 	$PanelContainer/AspectRatioContainer/VBoxContainer/column_info/value.text = data[0][1]
@@ -100,11 +119,41 @@ func on_file_selected(idx : int) -> void:
 func on_rename_clicked() -> void:
 	$rename_list_to.visible = true
 
-func on_rename_clicked_popup() -> void:
+func on_rename_clicked_confirmed() -> void:
 	
+	var ob : OptionButton = $PanelContainer/AspectRatioContainer/VBoxContainer/list_manager/OptionButton
+	var new_name : String = $rename_list_to/PanelContainer/VBoxContainer/LineEdit.text
 	
+	save_list(new_name,load_list(current_list_name))
+	ob.get_selected_id()
+	ob.set_item_text(ob.get_selected_id(),new_name)
 	
+	delete_list(current_list_name)
+	
+	current_list_name = new_name
 	$rename_list_to.visible = false
+
+func on_delete_list_pressed() -> void:
+	$delete_list.visible = true
+
+func on_dont_delete_list() -> void:
+	$delete_list.visible = false
+
+func on_delete_list_confirmed() -> void:
+	var ob : OptionButton = $PanelContainer/AspectRatioContainer/VBoxContainer/list_manager/OptionButton
+	
+	delete_list(current_list_name)
+	
+	var selected_id : int = ob.get_selected_id()
+	
+	ob.select(0)
+	
+	load_list_data($PanelContainer/AspectRatioContainer/VBoxContainer/list_manager/OptionButton.get_item_text(0))
+	call_deferred("reload_list_data")
+	
+	ob.remove_item(selected_id)
+	
+	$delete_list.visible = false
 
 func _ready() -> void:
 	
@@ -124,7 +173,14 @@ func _ready() -> void:
 	
 	$PanelContainer/AspectRatioContainer/VBoxContainer/list_manager/rename.pressed.connect(on_rename_clicked)
 	
-	$rename_list_to/PanelContainer/VBoxContainer/rename.pressed.connect(on_rename_clicked_popup)
+	$rename_list_to/PanelContainer/VBoxContainer/rename.pressed.connect(on_rename_clicked_confirmed)
+	
+	$PanelContainer/AspectRatioContainer/VBoxContainer/list_manager/remove.pressed.connect(on_delete_list_pressed)
+	
+	$delete_list/PanelContainer/VBoxContainer/HBoxContainer/yes.pressed.connect(on_delete_list_confirmed)
+	
+	$delete_list/PanelContainer/VBoxContainer/HBoxContainer/no.pressed.connect(on_dont_delete_list)
+	$delete_list.close_requested.connect(on_dont_delete_list)
 	
 	#directory manager
 	
